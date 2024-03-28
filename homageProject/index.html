@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tbd</title>
+    <title>poe.ninja</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
@@ -14,7 +14,7 @@
   </head>
   <body>
     <header>
-      <nav class="flex">
+      <nav>
         <div class="logo flex">
           <a href="/"
             ><img
@@ -32,15 +32,40 @@
       </nav>
     </header>
 
-    <!--     
-    <div class="">
-      <a href="">Categories</a>
-      <select name="" id=""></select>
-    </div>
-    <input type="search" name="" id="" placeholder="Seach By Item..." />
+    <section class="grid searchBarPlus">
+      <a href="">&#9776;&nbsp; Categories</a>
+      <div>
+        <label for="leagueSelect">League</label>
+        <select name="" id="leagueSelect">
+          <optgroup label="Current League">
+            <option value="#">Standard</option>
+            <option value="#">Hardcore</option>
+            <option value="#">Ruthless</option>
+            <option value="#">Hardcore Ruthless</option>
+          </optgroup>
+          <optgroup label="Previous Leagues">
+            <option value="#">Affliction</option>
+            <option value="#">Ancestor</option>
+            <option value="#">HC Affliction</option>
+            <option value="#">HC Ancestor</option>
+            <option value="#">Ruthless Affliction</option>
+            <option value="#">Ruthless Ancestor</option>
+            <option value="#">HC Ruthless Affliction</option>
+            <option value="#">HC Ruthless Ancestor</option>
+          </optgroup>
+        </select>
+      </div>
+      <input
+        type="search"
+        name=""
+        id=""
+        placeholder="Seach By Item..."
+        class="search"
+      />
+    </section>
     <aside></aside>
     <main>
-      <section>
+      <section class="flex mainContent">
         <div class="card">
           <h1>Welcome to poe.ninja!</h1>
           <p>
@@ -69,15 +94,22 @@
               Keep the overviews open and the information keeps flowing to your
               browser, so you can see current rates at a glance.
             </p>
-            <img src="" alt="" />
+            <img
+              src="https://poe.ninja/images/homepage_update.webp"
+              alt="Mirror and Mirror shard price"
+            />
           </div>
+
           <div class="card">
             <h2>Explore Historical Data</h2>
             <p>
               Interactive graphs of the last 120 days for currency and items.
               How is the market developing?
             </p>
-            <img src="" alt="" />
+            <img
+              src="https://poe.ninja/images/homepage_graph.webp"
+              alt="Price graph"
+            />
           </div>
           <div class="card">
             <h2>Confidence Indicators</h2>
@@ -85,7 +117,10 @@
               Quickly assess how much information a given price is based on
               using the green, yellow and red indicators.
             </p>
-            <img src="" alt="" />
+            <img
+              src="https://poe.ninja/images/homepage_indicators.webp"
+              alt="yellow or red ! indicating confidence"
+            />
           </div>
         </div>
         <div class="card">
@@ -108,8 +143,27 @@
         </div>
       </section>
     </main>
-    <footer>
-      <a href="">Settings</a>
-    </footer> -->
+    <footer class="grid">
+      <button>&#x2699; Settings</button>
+      <div>
+        <h3>About</h3>
+        <a href="">FAQ</a>
+        <a href="">Statistics</a>
+        <a href="">Data dumps</a>
+      </div>
+      <div>
+        <h3>Contribute&nbsp;</h3>
+        <a href="">Support the site</a>
+        <a href="">Merchandise</a>
+      </div>
+
+      <div>
+        <h3>Resources</h3>
+        <a href="">Privacy</a>
+      </div>
+      <p>
+        poe.ninja is not affiliated with or endorsed by Grinding Gear Games.
+      </p>
+    </footer>
   </body>
 </html>
