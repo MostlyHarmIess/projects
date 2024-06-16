@@ -1,0 +1,101 @@
+/* mobile styles */
+
+body {
+  /* padding: 30px; */
+  font-family: Poppins, sans-serif;
+  font-size: 1.5rem;
+  padding: 30px;
+}
+
+.page-header {
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.page-header h1,
+.page-header h2 {
+  color: #4d4f62;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.16666667px;
+  margin-bottom: 16px;
+}
+
+.page-header h2 {
+  color: #4d4f62;
+  font-weight: 200;
+  order: -1;
+  margin: 55px 0 0 0;
+}
+
+.page-header p {
+  color: hsla(234, 12%, 34%, 0.5);
+  font-family: Poppins;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: 0.104166664px;
+}
+
+main {
+  /* padding: 30px; */
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.card {
+  border-radius: 8px;
+  background: #ffffff;
+  background-blend-mode: normal;
+  box-shadow: 0px 15px 30px -11px rgba(131, 166, 210, 0.5);
+  padding: 28px;
+  position: relative;
+  height: 222px;
+  border-top: 4px solid transparent;
+  max-width: 350px;
+}
+.card p {
+  color: hsla(234, 12%, 34%, 0.5);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0.090277776px;
+}
+
+.card img {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+.stack {
+  display: flex;
+  flex-flow: column;
+  gap: 30px;
+}
+
+.supervisor {
+  border-color: hsla(180, 62%, 55%, 1);
+}
+.team-builder {
+  border-color: hsla(0, 78%, 62%, 1);
+}
+.karma {
+  border-color: hsla(34, 97%, 64%, 1);
+}
+.calculator {
+  border-color: hsla(212, 86%, 64%, 1);
+}
+
+/* desktop styles */
+@media (min-width: 1024px) {
+  main {
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,0 +1,63 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+table.dataTable {
+    width: 80%;
+}
+
+caption {
+  font-weight: bold;
+  text-align: center;
+  margin: 5px auto;
+}
+
+td, th {
+  text-align: center;
+  border: 1px solid #666;
+  padding: 5px;
+  background-color: rgb(249, 249, 249);
+}
+
+td:nth-child(2),
+thead th:nth-child(2),
+tfoot th:nth-child(1) {
+  text-align: left;
+}
+
+td a {
+  color: rgb(80, 107, 208);
+  text-decoration: none;
+}
+
+.flag-icon {
+  margin-right: 5px;
+}
+
+/*Grey Background*/
+thead th,
+tfoot th,
+tbody td:nth-child(1),
+td:nth-child(2) {
+  background-color: rgb(242, 242, 242);
+}
+
+/*Medals Background*/
+.gold {
+  background-color: rgb(255, 215, 0);
+}
+
+.silver {
+  background-color: rgb(192, 192, 192);
+}
+
+.bronze {
+  background-color: rgb(204, 153, 102);
+}

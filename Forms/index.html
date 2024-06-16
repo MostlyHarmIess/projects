@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forms exercise</title>
+  </head>
+  <body style="background-color: #222; color: #ccc">
+    <header>
+      <h1>T-Shirt creation form</h1>
+    </header>
+    <main>
+      <form
+        method="POST"
+        action="https://form-reader.netlify.app/.netlify/functions/formReader"
+      >
+        <div>
+          <label
+            >Title:
+            <select name="title" id="title-select">
+              <option>Mr</option>
+              <option>Ms</option>
+              <option>Master</option>
+              <option>Miss</option>
+            </select></label
+          >
+          <label>Name: <input type="text" /></label>
+        </div>
+        <div>
+          <label
+            >Address:
+            <textarea
+              name="address"
+              id="address-textarea"
+              cols="35"
+              rows="10"
+              placeholder="enter your address here"
+            ></textarea>
+          </label>
+        </div>
+        <div>
+          Size-
+          <label
+            >xs:<input type="radio" name="size" value="xs" id="xs"
+          /></label>
+          <label>s:<input type="radio" name="size" value="s" id="s" /></label>
+          <label>m:<input type="radio" name="size" value="m" id="m" /></label>
+          <label>L:<input type="radio" name="size" value="L" id="L" /></label>
+          <label
+            >XL:<input type="radio" name="size" value="XL" id="XL"
+          /></label>
+        </div>
+        <div>
+          Gender-
+          <label>M:<input type="radio" name="gender" value="m" id="m" /></label>
+          <label>F:<input type="radio" name="gender" value="f" id="f" /></label>
+        </div>
+        <div>
+          Pattern-
+          <label
+            >Backprint:<input
+              type="checkbox"
+              name="pattern"
+              value="backPrint"
+              id="backPrint"
+              checked
+          /></label>
+          <label
+            >Frontprint:<input
+              type="checkbox"
+              name="pattern"
+              value="frontPrint"
+              id="frontPrint"
+              checked
+          /></label>
+          <label
+            >Details:
+            <input
+              type="checkbox"
+              name="pattern"
+              value="details"
+              id="details"
+              checked
+          /></label>
+        </div>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+      </form>
+    </main>
+  </body>
+</html>

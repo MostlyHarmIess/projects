@@ -1,0 +1,196 @@
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: serif;
+  font-size: 1.6rem; /* PUT THIS IN */
+  text-align: center;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.typographic-list {
+  list-style: initial;
+  padding: initial;
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.8rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+/* GRID: Use a grid system or CSS grid */
+
+svg {
+  fill: currentColor;
+}
+
+/* END */
+/* Utility classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Page Header */
+
+.page-header {
+  background-image: url(https://s3.crackedcdn.com/phpimages/article/9/9/0/618990.jpg?v=2);
+  padding: 15px;
+  background-size: cover;
+  color: #fff;
+  min-height: 300px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.row {
+  display: flex;
+  flex-flow: column;
+}
+
+.hero-text {
+  width: 33.33%;
+}
+
+main {
+  margin-bottom: 50px;
+}
+
+aside,
+section {
+  padding: 50px 15px;
+}
+
+.newsfeed {
+  gap: 15px;
+}
+
+.newsfeed li {
+  padding-bottom: 50px;
+  border-bottom: 1px solid #000;
+}
+
+.avatar {
+  object-fit: cover;
+  max-height: 335px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.page-footer {
+  background-color: #000;
+  color: #fff;
+  padding: 15px;
+}
+
+.page-footer p {
+  margin-bottom: 0;
+}
+
+/* tablet */
+
+@media (min-width: 600px) {
+  .row {
+    flex-flow: row wrap;
+  }
+  .newsfeed li {
+    width: calc(50% - 15px);
+  }
+  li {
+    text-align: left;
+  }
+}
+
+/* desktop */
+
+@media (min-width: 1200px) {
+  .row {
+    flex-flow: row wrap;
+  }
+  .furry.newsfeed li {
+    width: calc(33% - 15px);
+  }
+  li {
+    text-align: left;
+  }
+  .goth.newsfeed li {
+    width: calc(25% - 15px);
+  }
+}
