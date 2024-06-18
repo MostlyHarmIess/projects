@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../components/Header";
 import Container from "@mui/material/Container";
+import Header from "../components/Header";
 
 function Layout() {
   return (
@@ -11,7 +11,7 @@ function Layout() {
         <Outlet />
       </Container>
 
-      <footer></footer>
+      <footer />
     </>
   );
 }

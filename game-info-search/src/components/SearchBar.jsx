@@ -1,19 +1,20 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable operator-linebreak */
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router";
-import { POKEMON_ENDPOINT } from "../App";
+import { POKEMON_ENDPOINT } from "../config";
 
-// { handleUserChoice }
 function SearchBar() {
   const navigate = useNavigate();
-  const [pokemonList, setPokemonList] = useState(() => {
-    return JSON.parse(localStorage.getItem("pokemon")) || [];
-  });
+  const [pokemonList, setPokemonList] = useState(
+    () => JSON.parse(localStorage.getItem("pokemon")) || [],
+  );
 
-  const [typeList, setTypeList] = useState(() => {
-    return JSON.parse(localStorage.getItem("type")) || [];
-  });
+  const [typeList, setTypeList] = useState(
+    () => JSON.parse(localStorage.getItem("type")) || [],
+  );
 
   async function fetchPokemon(endpoint) {
     try {
@@ -35,6 +36,7 @@ function SearchBar() {
           localStorage.setItem("type", JSON.stringify(shapedData));
           setTypeList(shapedData);
           break;
+        default:
       }
     } catch (e) {
       throw new Error(e);
@@ -55,22 +57,18 @@ function SearchBar() {
       id="pokemon-search-box"
       options={pokemonList.concat(typeList)}
       getOptionLabel={(option) => option.name}
-      onChange={(event, value, reason) => {
+      onChange={(event, value) => {
         if (
           value.length === 1 &&
-          pokemonList.some((ele) => {
-            return ele.name === value[0].name;
-          })
+          pokemonList.some((ele) => ele.name === value[0].name)
         ) {
-          // handleUserChoice(value.map((ele) => ele.name));
           navigate(`/pokemon-info/${value.map((ele) => ele.name)}`);
         } else if (
           value.length === 2 &&
-          !pokemonList.some((ele) => {
-            return ele.name === value[0].name || ele.name === value[1].name;
-          })
+          !pokemonList.some(
+            (ele) => ele.name === value[0].name || ele.name === value[1].name,
+          )
         ) {
-          // handleUserChoice(value.map((ele) => ele.name));
           navigate(`/type-info/${value.map((ele) => ele.name).join("-")}`);
         }
       }}
@@ -84,10 +82,7 @@ function SearchBar() {
         <TextField
           {...params}
           label="Search pokemon names or types"
-          onKeyDown={() => {
-            if (event.key === "Enter") {
-            }
-          }}
+          // onKeyDown={}
         />
       )}
     />

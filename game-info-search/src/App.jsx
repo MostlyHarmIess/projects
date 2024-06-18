@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import SearchBar from "./components/SearchBar";
 import Layout from "./pages/Layout";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import PokemonInfo from "./components/PokemonInfo";
 import TypeInfo from "./components/TypeInfo";
-
-export const POKEMON_ENDPOINT = "https://pokeapi.co/api/v2/";
 
 const darkTheme = createTheme({
   palette: {
