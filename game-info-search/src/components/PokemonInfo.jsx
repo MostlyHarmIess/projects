@@ -12,20 +12,13 @@ function PokemonInfo() {
   const { userChoice } = useParams();
   const navigate = useNavigate();
   const [pokemonData, setPokemonData] = useState(
-    JSON.parse(localStorage.getItem("pokemonData")) || [
-      { types: [{ type: { name: "" } }] },
-    ],
+    JSON.parse(localStorage.getItem("pokemonData")) || [],
   );
   const [typeData, setTypeData] = useState(
-    JSON.parse(localStorage.getItem("typeData")) || [
-      { name: "" },
-      { name: "" },
-    ],
+    JSON.parse(localStorage.getItem("typeData")) || [],
   );
 
   async function getTypeInfo(type) {
-    if (!type) return undefined;
-
     try {
       const response = await fetch(
         `${POKEMON_ENDPOINT}type/${type}?limit=100000`,
@@ -48,21 +41,6 @@ function PokemonInfo() {
     }
   }
 
-  async function assembleTypeData() {
-    if (pokemonData.types && pokemonData.types.length === 1) {
-      setTypeData([await getTypeInfo(pokemonData.types[0].type.name)]);
-    } else {
-      setTypeData([
-        await getTypeInfo(
-          pokemonData.types ? pokemonData.types[0].type.name : undefined,
-        ),
-        await getTypeInfo(
-          pokemonData.types ? pokemonData.types[1].type.name : undefined,
-        ),
-      ]);
-    }
-  }
-
   async function getPokemonInfo() {
     try {
       const response = await fetch(
@@ -74,9 +52,19 @@ function PokemonInfo() {
       const data = await response.json();
 
       setPokemonData(data);
-      assembleTypeData();
     } catch (e) {
       throw new Error(e);
+    }
+  }
+
+  async function assembleTypeData() {
+    if (pokemonData.types && pokemonData.types.length === 1) {
+      setTypeData([await getTypeInfo(pokemonData.types[0].type.name)]);
+    } else {
+      setTypeData([
+        await getTypeInfo(pokemonData.types[0].type.name),
+        await getTypeInfo(pokemonData.types[1].type.name),
+      ]);
     }
   }
 
@@ -90,6 +78,9 @@ function PokemonInfo() {
     if (pokemonData) {
       localStorage.setItem("pokemonData", JSON.stringify(pokemonData));
     }
+    if (JSON.parse(localStorage.getItem("typeData")) !== typeData) {
+      assembleTypeData();
+    }
   }, [pokemonData]);
 
   useEffect(() => {
@@ -98,7 +89,12 @@ function PokemonInfo() {
     }
   }, [typeData]);
 
-  if (!typeData || !pokemonData || pokemonData.name !== userChoice) {
+  if (
+    !typeData[0] ||
+    !pokemonData.name ||
+    pokemonData.name !== userChoice ||
+    pokemonData.types[0].type.name !== typeData[0].name
+  ) {
     return (
       <Grid container spacing={1}>
         <Grid
@@ -121,19 +117,23 @@ function PokemonInfo() {
         xs={12}
         style={{
           display: "flex",
-          justifyContent: "space-between",
           alignItems: "center",
         }}
       >
+        <img
+          src={pokemonData.sprites.front_default}
+          alt={typeData[0]?.name}
+          style={{ minHeight: "127px" }}
+        />
         <Typography variant="h1" component="h1">
           {userChoice}
           ,&nbsp;
-          {typeData[0].name}
+          {typeData[0]?.name}
           &nbsp;
           {typeData[1] ? typeData[1].name : ""}
         </Typography>
         <IconButton
-          style={{ height: "40px", width: "40px" }}
+          style={{ height: "40px", width: "40px", marginLeft: "auto" }}
           onClick={() => navigate("/")}
         >
           <ArrowBackIcon />
