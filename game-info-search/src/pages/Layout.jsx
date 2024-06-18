@@ -7,7 +7,7 @@ function Layout() {
   return (
     <>
       <Header />
-      <Container maxWidth="md">
+      <Container maxWidth="xl">
         <Outlet />
       </Container>
 

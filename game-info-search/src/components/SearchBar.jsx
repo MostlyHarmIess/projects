@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable operator-linebreak */
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -13,7 +12,7 @@ function SearchBar() {
   );
 
   const [typeList, setTypeList] = useState(
-    () => JSON.parse(localStorage.getItem("type")) || [],
+    () => JSON.parse(localStorage.getItem("types")) || [],
   );
 
   async function fetchPokemon(endpoint) {
@@ -33,7 +32,7 @@ function SearchBar() {
           setPokemonList(shapedData);
           break;
         case "type":
-          localStorage.setItem("type", JSON.stringify(shapedData));
+          localStorage.setItem("types", JSON.stringify(shapedData));
           setTypeList(shapedData);
           break;
         default:
@@ -47,7 +46,7 @@ function SearchBar() {
     if (!JSON.parse(localStorage.getItem("pokemon"))) {
       fetchPokemon("pokemon");
     }
-    if (!JSON.parse(localStorage.getItem("type"))) {
+    if (!JSON.parse(localStorage.getItem("types"))) {
       fetchPokemon("type");
     }
   }, []);
@@ -55,7 +54,7 @@ function SearchBar() {
   return (
     <Autocomplete
       id="pokemon-search-box"
-      options={pokemonList.concat(typeList)}
+      options={typeList.concat(pokemonList)}
       getOptionLabel={(option) => option.name}
       onChange={(event, value) => {
         if (

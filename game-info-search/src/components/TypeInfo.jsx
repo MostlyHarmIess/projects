@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Grid from "@mui/material/Unstable_Grid2";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { POKEMON_ENDPOINT } from "../config";
+import DamageTaken from "./DamageTaken";
 
 function TypeInfo() {
+  const navigate = useNavigate();
   const { userChoice } = useParams();
   const shapedUserChoice = userChoice.split("-");
   const [typeData, setTypeData] = useState(
-    JSON.parse(sessionStorage.getItem("typeData")) || [],
+    JSON.parse(localStorage.getItem("typeData")) || [],
   );
-  const [totalDamageTaken, setTotalDamageTaken] = useState({
-    fourTimes: [],
-    twoTimes: [],
-    halfTimes: [],
-    quarterTimes: [],
-    immune: [],
-  });
+  const [pokemonOfType, setPokemonOfType] = useState([]);
 
   async function getTypeInfo(type) {
     if (!type) return undefined;
@@ -27,6 +30,7 @@ function TypeInfo() {
         throw response;
       }
       const data = await response.json();
+
       delete data.game_indices;
       delete data.generation;
       delete data.move_damage_class;
@@ -47,87 +51,115 @@ function TypeInfo() {
     ]);
   }
 
-  function compareDamageTaken() {
-    const doubleFrom1 = new Set([
-      ...typeData[0].damage_relations.double_damage_from.map((ele) => ele.name),
+  function pokemonOfBothTypes() {
+    if (!typeData[0]?.name && !typeData[1]?.name) return;
+    const pokemonOfFirstType = new Set([
+      ...typeData[0].pokemon.map((ele) => ele.pokemon.name),
     ]);
-    const doubleFrom2 = new Set([
-      ...typeData[1].damage_relations.double_damage_from.map((ele) => ele.name),
+    const pokemonOfSecondType = new Set([
+      ...typeData[1].pokemon.map((ele) => ele.pokemon.name),
     ]);
-
-    const halfFrom1 = new Set([
-      ...typeData[1].damage_relations.half_damage_from.map((ele) => ele.name),
-    ]);
-    const halfFrom2 = new Set([
-      ...typeData[1].damage_relations.half_damage_from.map((ele) => ele.name),
-    ]);
-
-    const noDamageFrom1 = new Set([
-      ...typeData[1].damage_relations.no_damage_from.map((ele) => ele.name),
-    ]);
-    const noDamageFrom2 = new Set([
-      ...typeData[1].damage_relations.no_damage_from.map((ele) => ele.name),
-    ]);
-
-    setTotalDamageTaken({
-      fourTimes: [...doubleFrom1.intersection(doubleFrom2)],
-      twoTimes: [
-        ...doubleFrom1
-          .symmetricDifference(doubleFrom2)
-          .difference(halfFrom1.symmetricDifference(halfFrom2)),
-      ],
-      halfTimes: [
-        ...halfFrom1
-          .symmetricDifference(halfFrom2)
-          .difference(doubleFrom1.symmetricDifference(doubleFrom2)),
-      ],
-      quarterTimes: [...halfFrom1.intersection(halfFrom2)],
-      immune: [...noDamageFrom1.union(noDamageFrom2)],
-    });
+    setPokemonOfType(
+      [...pokemonOfFirstType.intersection(pokemonOfSecondType)].filter(
+        (ele) =>
+          !ele.endsWith("-gmax") &&
+          !ele.endsWith("-terastal") &&
+          !ele.endsWith("-stellar") &&
+          !ele.endsWith("-mega"),
+      ),
+    );
   }
 
   useEffect(() => {
-    if (!typeData[0]?.name || typeData[0].name !== shapedUserChoice[0]) {
+    if (
+      !typeData ||
+      typeData[0]?.name !== shapedUserChoice[0] ||
+      typeData[1]?.name !== shapedUserChoice[1]
+    ) {
       assembleTypeData();
     }
   }, []);
 
   useEffect(() => {
-    sessionStorage.setItem("typeData", JSON.stringify(typeData));
-    compareDamageTaken();
+    if (typeData) {
+      localStorage.setItem("typeData", JSON.stringify(typeData));
+    }
+    pokemonOfBothTypes();
   }, [typeData]);
 
-  if (!typeData[0]?.name || typeData[0].name !== shapedUserChoice[0]) {
-    return <h1>Loading...</h1>;
+  if (
+    !typeData[0]?.name ||
+    typeData[0].name !== shapedUserChoice[0] ||
+    typeData[1].name !== shapedUserChoice[1]
+  ) {
+    return (
+      <Grid container spacing={1}>
+        <Grid
+          xs={12}
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress />
+        </Grid>
+      </Grid>
+    );
   }
 
   return (
-    <>
-      <h1>
-        {shapedUserChoice[0]}
-        &nbsp;
-        {shapedUserChoice[1]}
-        &nbsp; takes:
-      </h1>
-      <ul>
-        <li>
-          four times damage from:&nbsp;
-          {totalDamageTaken.fourTimes.join(", ")}
-        </li>
-        <li>
-          double damage from:&nbsp;
-          {totalDamageTaken.twoTimes.join(", ")}
-        </li>
-        <li>
-          half damage from:&nbsp;
-          {totalDamageTaken.halfTimes.join(", ")}
-        </li>
-        <li>
-          and is immune to:&nbsp;
-          {totalDamageTaken.immune.join(", ")}
-        </li>
-      </ul>
-    </>
+    <Grid container spacing={1}>
+      <Grid
+        xs={12}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h1" component="h1">
+          {shapedUserChoice[0]}
+          &nbsp;
+          {shapedUserChoice[1]}
+        </Typography>
+        <IconButton
+          style={{ height: "40px", width: "40px" }}
+          onClick={() => navigate("/")}
+        >
+          <ArrowBackIcon />
+        </IconButton>
+      </Grid>
+
+      <Grid xs={12}>
+        <Typography variant="h4" component="div">
+          Damage Taken
+        </Typography>
+      </Grid>
+
+      <DamageTaken
+        typeData={typeData}
+        firstType={shapedUserChoice[0]}
+        secondType={shapedUserChoice[1]}
+      />
+
+      <Grid xs={12}>
+        <Typography variant="h4" component="div">
+          Pokemon with these types
+        </Typography>
+      </Grid>
+
+      <Grid xs="auto">
+        <Card>
+          <CardContent>
+            <Typography variant="h4" component="div">
+              {pokemonOfType.join(", ")}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 }
 
