@@ -7,6 +7,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CircularProgress from "@mui/material/CircularProgress";
 import DamageTaken from "./DamageTaken";
 import { POKEMON_ENDPOINT } from "../config";
+import PokemonOfType from "./PokemonOfType";
 
 function PokemonInfo() {
   const { userChoice } = useParams();
@@ -69,22 +70,33 @@ function PokemonInfo() {
   }
 
   useEffect(() => {
-    if (!pokemonData || pokemonData.name !== userChoice) {
+    if (
+      !typeData[0] ||
+      !pokemonData.name ||
+      pokemonData.name !== userChoice ||
+      pokemonData.types[0].type.name !== typeData[0].name
+    ) {
       getPokemonInfo();
     }
   }, []);
 
   useEffect(() => {
-    if (pokemonData) {
+    // console.log(pokemonData);
+    if (pokemonData.name) {
       localStorage.setItem("pokemonData", JSON.stringify(pokemonData));
     }
-    if (JSON.parse(localStorage.getItem("typeData")) !== typeData) {
+    if (
+      !typeData[0] ||
+      !pokemonData.name ||
+      pokemonData.name !== userChoice ||
+      pokemonData.types[0].type.name !== typeData[0].name
+    ) {
       assembleTypeData();
     }
   }, [pokemonData]);
 
   useEffect(() => {
-    if (typeData) {
+    if (typeData?.[0]?.name) {
       localStorage.setItem("typeData", JSON.stringify(typeData));
     }
   }, [typeData]);
@@ -147,6 +159,14 @@ function PokemonInfo() {
       </Grid>
 
       <DamageTaken typeData={typeData} />
+
+      <Grid xs={12}>
+        <Typography variant="h4" component="div">
+          Other pokemon of this typing
+        </Typography>
+      </Grid>
+
+      <PokemonOfType typeData={typeData} />
     </Grid>
   );
 }

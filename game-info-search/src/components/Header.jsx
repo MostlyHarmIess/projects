@@ -20,10 +20,10 @@ export default function Header() {
           </Typography>
           <Button color="inherit">Pokemon</Button>
           <Button color="inherit" disabled>
-            Minecraft
+            Game 2
           </Button>
           <Button color="inherit" disabled>
-            League of legends
+            Game 3
           </Button>
         </Toolbar>
       </AppBar>
