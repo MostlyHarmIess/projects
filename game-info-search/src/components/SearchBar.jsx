@@ -56,6 +56,11 @@ function SearchBar() {
       id="pokemon-search-box"
       options={typeList.concat(pokemonList)}
       getOptionLabel={(option) => option.name}
+      onKeyDown={(event) => {
+        if (event.key === "Tab") {
+          event.key = "Enter";
+        }
+      }}
       onChange={(event, value) => {
         if (
           value.length === 1 &&
@@ -78,11 +83,7 @@ function SearchBar() {
       fullWidth
       sx={{ marginTop: "40vh" }}
       renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Search pokemon names or types"
-          // onKeyDown={}
-        />
+        <TextField {...params} label="Search pokemon names or types" />
       )}
     />
   );
